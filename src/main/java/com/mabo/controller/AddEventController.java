@@ -17,12 +17,15 @@ public class AddEventController {
     /**
      * @Author mabo
      * @Description   该方法主动调用
+     * 浏览器输入下方地址即可测试
+     *          http://localhost:8099/addEvent/add
      */
 
     @RequestMapping("add")
-    public void add(){
+    public String add(){
         String test = addEvent.addEvent("测试");
         System.out.println("add方法的返回值为:"+test);
+        return test;
     }
 
     @AddEventListener(EventType.BEFOREEVENT)
