@@ -34,7 +34,7 @@ method.invoke(o, args);
 
 ##  核心源码
 ```java
-    @Around("@annotation(event)")
+   @Around("@annotation(event)")
     public Object addEventListener(ProceedingJoinPoint joinPoint, AddEventAop event) throws Throwable {
         Object[] args = joinPoint.getArgs();
         //存储需要在方法执行之后再执行的类
@@ -45,6 +45,7 @@ method.invoke(o, args);
         final Map<String, Object> beans = applicationContext.getBeansWithAnnotation(AddEventAop.class);
         for (String key : beans.keySet()) {
             //Spring 代理类导致Method无法获取,这里使用AopUtils.getTargetClass()方法
+            Object o  = beans.get(key);
             Class<?> aClass = beans.get(key).getClass();
             String name = aClass.getName();
             //aop切面会导致方法注解丢失，在这里处理获取原类名
@@ -53,7 +54,6 @@ method.invoke(o, args);
                 name=names[0];
                 aClass = Class.forName(name);
             }
-            Object o = aClass.newInstance();
             Method[] methods = aClass.getMethods();
             for (Method method : methods) {
                 //获取指定方法上的注解的属性
@@ -81,10 +81,6 @@ method.invoke(o, args);
         }
         return proceed;
     }
-
-
-}
-
 ```
 
 
