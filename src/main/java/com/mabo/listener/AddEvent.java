@@ -17,4 +17,9 @@ public class AddEvent{
         System.out.println("addEvent执行,参数:"+s);
         return s;
     }
+
+    public void reduce(){
+        System.out.println("reduce执行成功");
+    }
+
 }

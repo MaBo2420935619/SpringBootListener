@@ -40,6 +40,7 @@ public class AddEventAspect {
         final Map<String, Object> beans = applicationContext.getBeansWithAnnotation(AddEventAop.class);
         for (String key : beans.keySet()) {
             //Spring 代理类导致Method无法获取,这里使用AopUtils.getTargetClass()方法
+            Object o  = beans.get(key);
             Class<?> aClass = beans.get(key).getClass();
             String name = aClass.getName();
             //aop切面会导致方法注解丢失，在这里处理获取原类名
@@ -48,7 +49,6 @@ public class AddEventAspect {
                 name=names[0];
                 aClass = Class.forName(name);
             }
-            Object o = aClass.newInstance();
             Method[] methods = aClass.getMethods();
             for (Method method : methods) {
                 //获取指定方法上的注解的属性

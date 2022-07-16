@@ -31,6 +31,7 @@ public class AddEventController {
     @AddEventListener(EventType.BEFOREEVENT)
     public void test1(String s) {
         System.out.println("test1执行成功，参数:"+s);
+        addEvent.reduce();
     }
 
     @AddEventListener(EventType.BEFOREEVENT)
